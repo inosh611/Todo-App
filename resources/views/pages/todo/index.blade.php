@@ -53,6 +53,10 @@
                                             style="color: #ffffff;"></i></a>
                                     <a href="javascript:void(0)" class="btn btn-primary"><i class="fa-solid fa-pen"
                                             style="color: #ffffff;" onclick="taskEditModel({{ $task->id }})"></i></a>
+                                    <a href="{{ route('todo.sub', $task->id) }}" style="margin-right:10px"
+                                        class="btn btn-dark"><i class="fa-solid fa-arrow-right"
+                                            style="color: #ffffff;"></i></a>
+
                                 </td>
                             </tr>
                         @endforeach
@@ -99,18 +103,18 @@
                 task_id: task_id,
             };
             $.ajax({
-                    url: "{{ route('todo.edit') }}",
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    type: 'GET',
-                    dataType: '',
-                    data: data,
-                    success: function (response){
-                        $('#taskEdit').modal('show');
-                        $('#taskEditContent').html(response);
-                    }
-                });
+                url: "{{ route('todo.edit') }}",
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                type: 'GET',
+                dataType: '',
+                data: data,
+                success: function(response) {
+                    $('#taskEdit').modal('show');
+                    $('#taskEditContent').html(response);
+                }
+            });
 
 
         }

@@ -3,13 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Models\Todo;
+use App\Models\SubTask;
 use Illuminate\Http\Request;
 
 class todoController extends Controller
 {
     protected $task;
+    protected $sub;
     public function __construct(){
         $this->task = new Todo();
+        $this->sub = new SubTask();
     }
 
 
@@ -54,5 +57,21 @@ class todoController extends Controller
 
     protected function pedit(Todo $task, array $data){
         return array_merge($task->toArray(), $data);
+    }
+
+
+
+    public function sub($task_id){
+        $response['task'] = $this->task->find($task_id);
+        $response['sub_task'] = $this->sub->getSubTaskByTask($task_id);
+        // dd($response);
+        return view('pages.todo.sub')->with($response);
+    }
+
+//Subtask
+    public function subStore(Request $request){
+        $this->sub->create($request->all());
+
+        return redirect()->back();
     }
 }
