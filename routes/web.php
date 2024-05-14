@@ -25,5 +25,8 @@ Route::prefix('/todo')->group(function(){
     Route::post('/store',[todoController::class,'store'])->name('todo.store');
     Route::get('/{task_id}/delete',[todoController::class,'delete'])->name('todo.delete');
     Route::get('/{task_id}/done',[todoController::class,'done'])->name('todo.done');
+    Route::GET('/edit',[todoController::class,'edit'])->name('todo.edit');
+    Route::post('/{task_id}/update',[todoController::class,'update'])->name('todo.update');
+
 
 });

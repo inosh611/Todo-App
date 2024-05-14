@@ -38,4 +38,21 @@ class todoController extends Controller
 
         return redirect()->back();
     }
+
+   public function edit(Request $request){
+
+    $response['task'] = $this->task->find($request['task_id']);
+    return view('pages.todo.edit')->with($response);
+
+}
+
+    public function update(Request $request, $task_id){
+        $task = $this->task->find($task_id);
+        $task->update($this->pedit($task, $request->all()));
+        return redirect()->back();
+    }
+
+    protected function pedit(Todo $task, array $data){
+        return array_merge($task->toArray(), $data);
+    }
 }
